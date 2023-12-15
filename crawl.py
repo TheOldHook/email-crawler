@@ -62,7 +62,7 @@ def main():
     existing_emails = read_existing_emails(csv_file_path)
 
     # scraping function
-    new_emails = set(google_search("bioklipping"))
+    new_emails = set(google_search("skogeierforening"))
 
     # Combine and remove duplicates
     all_emails = existing_emails.union(new_emails)

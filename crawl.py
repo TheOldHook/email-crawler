@@ -1,6 +1,5 @@
 import re
 import requests
-from bs4 import BeautifulSoup
 from googlesearch import search
 import os
 import csv

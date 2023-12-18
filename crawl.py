@@ -59,18 +59,38 @@ def save_emails_to_csv(emails, file_path):
 
 def main():
     csv_file_path = 'emails.csv'
-    existing_emails = read_existing_emails(csv_file_path)
-
-    # scraping function
-    new_emails = set(google_search("skogeierforening"))
-
-    # Combine and remove duplicates
-    all_emails = existing_emails.union(new_emails)
-
-    # Save to CSV
-    save_emails_to_csv(all_emails, csv_file_path)
+    
+    while True:  # This starts an infinite loop.
+        try:
+            existing_emails = read_existing_emails(csv_file_path)
+            
+            # Prompt the user for a search term
+            search_query = input("Please enter the search term (or type 'exit' to quit): ")
+            
+            if search_query.lower() == 'exit':  # If user types 'exit', break the loop and end the script.
+                print("Exiting the program.")
+                break
+            
+            # Use the user's input as the search query
+            new_emails = set(google_search(search_query))
+            
+            # Report the number of emails found
+            print(f"Found {len(new_emails)} new emails for the term '{search_query}'.")
+            
+            # Combine and remove duplicates
+            all_emails = existing_emails.union(new_emails)
+            
+            # Save to CSV
+            save_emails_to_csv(all_emails, csv_file_path)
+            print(f"Updated list saved to {csv_file_path}. Total unique emails: {len(all_emails)}")
+            
+        except KeyboardInterrupt:
+            # If user hits Ctrl+C, print a message and break the loop.
+            print("\nProcess interrupted by user. Exiting.")
+            break
 
 if __name__ == "__main__":
     main()
+
 
 
